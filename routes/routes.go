@@ -2,6 +2,7 @@ package routes
 
 import (
 	"gopos/api"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -9,7 +10,8 @@ import (
 func InitRoutes(app *fiber.App) {
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendStatus(200)
+		dbName := os.Getenv("DB_NAME")
+		return c.SendString("Selected database: " + dbName)
 	})
 
 	app.Post("/users", api.StoreUser)
